@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataHolder : MonoBehaviour
+public class HandMoverScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
