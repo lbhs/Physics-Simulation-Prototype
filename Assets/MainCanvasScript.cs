@@ -10,6 +10,7 @@ public class MainCanvasScript : MonoBehaviour
     public List<MonoBehaviour> DrawerScripts = new List<MonoBehaviour>();
     private string toggle;
     private Vector3 offset;
+    private Quaternion Roffset;
     private Rigidbody2D MovingObject;
     public DragCamera2D CameraDrag;
     // Update is called once per frame
@@ -38,15 +39,23 @@ public class MainCanvasScript : MonoBehaviour
                 {
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
                     MovingObject.simulated = false;
+                    Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - MovingObject.transform.position;
+                    diff.Normalize();
+
+                    float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                    Roffset = Quaternion.Inverse( Quaternion.Euler(0f, 0f, rot_z - 90)) * MovingObject.transform.rotation;
                 }
             }
             if (Input.GetMouseButton(0))
             {
-                Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - MovingObject.transform.position;
-                diff.Normalize();
+                if (MovingObject != null)
+                {
+                    Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - MovingObject.transform.position;
+                    diff.Normalize();
 
-                float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-                MovingObject.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+                    float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                    MovingObject.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90) * Roffset;
+                }
             }
             if (Input.GetMouseButtonUp(0))
             {
