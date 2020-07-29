@@ -31,13 +31,39 @@ public class MainCanvasScript : MonoBehaviour
             {
                 item.enabled = false;
             }
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit.collider != null)
+                {
+                    MovingObject = hit.collider.GetComponent<Rigidbody2D>();
+                    MovingObject.simulated = false;
+                }
+            }
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - MovingObject.transform.position;
+                diff.Normalize();
+
+                float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                MovingObject.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (MovingObject != null)
+                {
+                    //move object
+                    MovingObject.simulated = true;
+                    MovingObject = null;
+                }
+            }
         }
         else if (toggle == "Move")
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if(hit.collider != null)
+                if (hit.collider != null)
                 {
                     //move object
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
