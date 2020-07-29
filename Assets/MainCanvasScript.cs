@@ -11,6 +11,7 @@ public class MainCanvasScript : MonoBehaviour
     private string toggle;
     private Vector3 offset;
     private Rigidbody2D MovingObject;
+    public DragCamera2D CameraDrag;
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +26,7 @@ public class MainCanvasScript : MonoBehaviour
 
         if (toggle == "Rotate")
         {
+            CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 item.enabled = false;
@@ -43,6 +45,10 @@ public class MainCanvasScript : MonoBehaviour
                     offset = hit.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     offset.z = 10;
                 }
+                else
+                {
+                    CameraDrag.dragEnabled = true;
+                }
             }
             if (Input.GetMouseButton(0))
             {
@@ -60,6 +66,7 @@ public class MainCanvasScript : MonoBehaviour
                     MovingObject.simulated = true;
                     MovingObject = null;
                 }
+                CameraDrag.dragEnabled = false;
             }
             foreach (MonoBehaviour item in DrawerScripts)
             {
@@ -68,6 +75,7 @@ public class MainCanvasScript : MonoBehaviour
         }
         else if (toggle == "Circle")
         {
+            CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 if (item.GetType().Name == "CircleDrawerScript")
@@ -82,6 +90,7 @@ public class MainCanvasScript : MonoBehaviour
         }
         else if (toggle == "Square")
         {
+            CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 if (item.GetType().Name == "SquareDrawerScript")
@@ -96,6 +105,7 @@ public class MainCanvasScript : MonoBehaviour
         }
         else if (toggle == "Anchor")
         {
+            CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 item.enabled = false;
@@ -124,6 +134,7 @@ public class MainCanvasScript : MonoBehaviour
         }
         else if (toggle == "Delete")
         {
+            CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 item.enabled = false;

@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -756,6 +757,39 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c3989406c198b4087c0e47eb93dd41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
+  dragEnabled: 1
+  dragSpeed: -0.06
+  edgeBoundary: 20
+  edgeSpeed: 1
+  keyboardInput: 0
+  inverseKeyboard: 0
+  touchEnabled: 0
+  touchDragSpeed: -0.03
+  zoomEnabled: 1
+  linkedZoomDrag: 1
+  maxZoom: 10
+  minZoom: 0.5
+  zoomStepSize: 0.5
+  zoomToMouse: 0
+  followTarget: {fileID: 0}
+  lerpSpeed: 0.5
+  offset: {x: 0, y: 0, z: -10}
+  clampCamera: 0
+  bounds: {fileID: 0}
+  dollyRail: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2695,7 +2729,7 @@ MonoBehaviour:
   - {fileID: 1950352184}
   - {fileID: 1950352185}
   - {fileID: 1950352187}
-  CameraDragSpeed: 1
+  CameraDrag: {fileID: 519420030}
 --- !u!114 &1950352187
 MonoBehaviour:
   m_ObjectHideFlags: 0
