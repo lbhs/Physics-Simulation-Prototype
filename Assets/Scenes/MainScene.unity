@@ -2695,6 +2695,7 @@ MonoBehaviour:
   - {fileID: 1950352184}
   - {fileID: 1950352185}
   - {fileID: 1950352187}
+  CameraDragSpeed: 1
 --- !u!114 &1950352187
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,7 @@ public class MainCanvasScript : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if(hit.collider != null)
                 {
+                    //move object
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
                     MovingObject.simulated = false;
                     offset = hit.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -47,6 +48,7 @@ public class MainCanvasScript : MonoBehaviour
             {
                 if (MovingObject != null)
                 {
+                    //move object
                     MovingObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
                 }
             }
@@ -54,6 +56,7 @@ public class MainCanvasScript : MonoBehaviour
             {
                 if (MovingObject != null)
                 {
+                    //move object
                     MovingObject.simulated = true;
                     MovingObject = null;
                 }
