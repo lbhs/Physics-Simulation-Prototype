@@ -9,6 +9,8 @@ public class MainCanvasScript : MonoBehaviour
     public ToggleGroup TG;
     public List<MonoBehaviour> DrawerScripts = new List<MonoBehaviour>();
     private string toggle;
+    private Vector3 offset;
+    private Rigidbody2D MovingObject;
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +32,32 @@ public class MainCanvasScript : MonoBehaviour
         }
         else if (toggle == "Move")
         {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if(hit.collider != null)
+                {
+                    MovingObject = hit.collider.GetComponent<Rigidbody2D>();
+                    MovingObject.simulated = false;
+                    offset = hit.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    offset.z = 10;
+                }
+            }
+            if (Input.GetMouseButton(0))
+            {
+                if (MovingObject != null)
+                {
+                    MovingObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+                }
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (MovingObject != null)
+                {
+                    MovingObject.simulated = true;
+                    MovingObject = null;
+                }
+            }
             foreach (MonoBehaviour item in DrawerScripts)
             {
                 item.enabled = false;
