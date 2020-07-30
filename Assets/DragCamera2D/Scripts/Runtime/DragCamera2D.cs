@@ -152,7 +152,7 @@ public class DragCamera2D : MonoBehaviour
         }
         transform.Translate(x, y, 0);
     }
-
+#if UNITY_EDITOR
     public void addCameraDolly() {
         if (dollyRail == null) {
             GameObject go = new GameObject("Dolly");
@@ -188,7 +188,7 @@ public class DragCamera2D : MonoBehaviour
             EditorUtility.SetDirty(this);
         }
     }
-
+#endif
     public void doTouchControls() {
         // Pro
     }
