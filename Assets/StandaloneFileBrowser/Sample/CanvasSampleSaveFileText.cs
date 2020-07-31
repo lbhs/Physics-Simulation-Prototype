@@ -8,7 +8,8 @@ using SFB;
 
 [RequireComponent(typeof(Button))]
 public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
-    public Text output;
+    //public Text output;
+    public string defaultFileName = "File_Name";
 
     // Sample text data
     //private string _data = "Example text created by StandaloneFileBrowser";
@@ -25,7 +26,7 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
         DataSaveingScript.SaveJSON();
         
         var bytes = Encoding.UTF8.GetBytes(DataSaveingScript.JSONFileText);
-        DownloadFile(gameObject.name, "OnFileDownload", "sample.txt", bytes, bytes.Length);
+        DownloadFile(gameObject.name, "OnFileDownload", defaultFileName + ".txt", bytes, bytes.Length);
     }
 
     // Called from browser
@@ -45,7 +46,7 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
         
     }
     public void OnClick() {
-        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", "sample", "txt");
+        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", defaultFileName, "txt");
         if (!string.IsNullOrEmpty(path)) {
             DataSaveingScript.SaveJSON();
             File.WriteAllText(path, DataSaveingScript.JSONFileText);

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleJSON;
 
 public class DataSaveingScript : MonoBehaviour
 {
-    public static GameObject ListOfPhysicsObjects;
+    public static List<PhysicsObjectScript> ListOfPhysicsObjects = new List<PhysicsObjectScript>();
+
     public static string JSONFileText;
     public static void SaveJSON()
     {

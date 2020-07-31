@@ -215,4 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63aa3e75ed26901469d2994a64a0daa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 7707847143424123986}
   Anchor: {fileID: 1376874579227034036}
+  isAnchored: 0

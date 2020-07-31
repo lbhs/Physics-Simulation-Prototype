@@ -25,6 +25,7 @@ public class MainCanvasScript : MonoBehaviour
             toggle = toggleEnum.Current.name;
         }
 
+        //Rotate tool
         if (toggle == "Rotate")
         {
             CameraDrag.dragEnabled = false;
@@ -67,6 +68,7 @@ public class MainCanvasScript : MonoBehaviour
                 }
             }
         }
+        //move tool
         else if (toggle == "Move")
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -108,6 +110,7 @@ public class MainCanvasScript : MonoBehaviour
                 item.enabled = false;
             }
         }
+        //enable Circle tool
         else if (toggle == "Circle")
         {
             CameraDrag.dragEnabled = false;
@@ -123,6 +126,23 @@ public class MainCanvasScript : MonoBehaviour
                 }
             }
         }
+        //enable Triangle tool
+        else if (toggle == "Triangle")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "TriangleDrawerScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //enable Square tool
         else if (toggle == "Square")
         {
             CameraDrag.dragEnabled = false;
@@ -138,6 +158,23 @@ public class MainCanvasScript : MonoBehaviour
                 }
             }
         }
+        //enable Line tool
+        else if (toggle == "Line")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "LineDrawerScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //Anchor tool
         else if (toggle == "Anchor")
         {
             CameraDrag.dragEnabled = false;
@@ -150,23 +187,37 @@ public class MainCanvasScript : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if (hit.collider != null)
                 {
-                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null && hit.collider.GetComponent<Rigidbody2D>() != null)
+                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null)
                     {
-                        Rigidbody2D rb = hit.collider.GetComponent<Rigidbody2D>();
-                        if (rb.constraints == RigidbodyConstraints2D.FreezeAll)
+                        if (hit.collider.GetComponent<PhysicsObjectScript>().isAnchored == false)
                         {
-                            hit.collider.GetComponent<PhysicsObjectScript>().Anchor.SetActive(false);
-                            rb.constraints = RigidbodyConstraints2D.None;
+                            hit.collider.GetComponent<PhysicsObjectScript>().isAnchored = true;
                         }
                         else
                         {
-                            hit.collider.GetComponent<PhysicsObjectScript>().Anchor.SetActive(true);
-                            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                            hit.collider.GetComponent<PhysicsObjectScript>().isAnchored = false;
                         }
                     }
                 }
             }
         }
+        //joint tool (pivot point)
+        else if (toggle == "Point_Joint")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "PointJointScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //Delete tool
         else if (toggle == "Delete")
         {
             CameraDrag.dragEnabled = false;
@@ -187,6 +238,72 @@ public class MainCanvasScript : MonoBehaviour
                 }
             }
 
+        }
+        //line joint tool (between two objects
+        else if (toggle == "Line_Joint")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "LineJointScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //line joint tool (between two objects
+        else if (toggle == "Velocity")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "VelocityArrowScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //Color tool
+        else if (toggle == "Color")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                if (item.GetType().Name == "ColorScript")
+                {
+                    item.enabled = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
+            }
+        }
+        //Charge tool
+        else if (toggle == "PlusMinus")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                item.enabled = false;
+            }
+        }
+        //Charge tool
+        else if (toggle == "ChargeMinus")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                item.enabled = false;
+            }
         }
     }
 }
