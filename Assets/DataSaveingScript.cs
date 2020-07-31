@@ -5,12 +5,13 @@ using UnityEngine;
 public class DataSaveingScript : MonoBehaviour
 {
     public static GameObject ListOfPhysicsObjects;
-    void SaveJSON()
+    public static string JSONFileText;
+    public static void SaveJSON()
     {
-
+        JSONFileText = "not yet!";
     }
-    void LoadJSON()
+    public static void LoadJSON(string JSON)
     {
-
+        print(JSON);
     }
 }
