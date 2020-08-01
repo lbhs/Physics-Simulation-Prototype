@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class LineDrawerScript : MonoBehaviour
 {
     public GameObject LineObject;
-    public float lineQuality=0.5f;
+    public float lineQuality = 0.5f;
     private GameObject Line;
     private LineRenderer LR;
     private Vector3 DownPos;
@@ -21,17 +21,17 @@ public class LineDrawerScript : MonoBehaviour
                 v3.z = 10.0f;
                 DownPos = Camera.main.ScreenToWorldPoint(v3);
 
-                Line = Instantiate(LineObject, DownPos, Quaternion.identity);
+                Line = Instantiate(LineObject, Vector3.zero, Quaternion.identity);
                 LR = Line.GetComponent<LineRenderer>();
                 LR.positionCount++;
-                LR.SetPosition(LR.positionCount-1, DownPos);
+                LR.SetPosition(LR.positionCount - 1, DownPos);
             }
             if (Input.GetMouseButton(0))
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(v3);
-                if ((mousePos - LR.GetPosition(LR.positionCount-1)).magnitude > lineQuality)
+                if ((mousePos - LR.GetPosition(LR.positionCount - 1)).magnitude > lineQuality)
                 {
                     LR.positionCount++;
                     LR.SetPosition(LR.positionCount - 1, mousePos);
@@ -48,14 +48,21 @@ public class LineDrawerScript : MonoBehaviour
                 }
                 else
                 {
-                    AddMesh(LR, Line.GetComponent<PolygonCollider2D>());
+                    AddMesh(LR, Line.GetComponent<EdgeCollider2D>());
                 }
             }
         }
     }
-
-    void AddMesh(LineRenderer line, PolygonCollider2D Poly)
+    void AddMesh(LineRenderer line, EdgeCollider2D Edge)
     {
-
+        Vector3[] Poses = new Vector3[line.positionCount];
+        line.GetPositions(Poses);
+        List<Vector2> DPoses = new List<Vector2>();
+        
+        for (int i = 0; i < Poses.Length; i++)
+        {
+            DPoses.Add(new Vector2(Poses[i].x, Poses[i].y));
+        }
+        Edge.points = DPoses.ToArray();
     }
 }

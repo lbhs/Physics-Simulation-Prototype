@@ -216,5 +216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7707847143424123986}
-  Anchor: {fileID: 1376874579227034036}
+  AnchorPrefab: {fileID: 7596929884072132762, guid: 8a1aa7601fd27ce48b894ee60a47c5d8,
+    type: 3}
   isAnchored: 0

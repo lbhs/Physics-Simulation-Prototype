@@ -191,6 +191,7 @@ public class MainCanvasScript : MonoBehaviour
                     {
                         if (hit.collider.GetComponent<PhysicsObjectScript>().isAnchored == false)
                         {
+                            hit.collider.GetComponent<PhysicsObjectScript>().InstanciateAnchor(hit.point);
                             hit.collider.GetComponent<PhysicsObjectScript>().isAnchored = true;
                         }
                         else
