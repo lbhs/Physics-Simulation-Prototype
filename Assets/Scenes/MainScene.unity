@@ -3907,7 +3907,18 @@ MonoBehaviour:
   m_Group: {fileID: 1605037754}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1950352192}
+        m_MethodName: UpdateColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1292147742
 GameObject:
@@ -5573,6 +5584,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0a2de330d9ed3429e7696ef6ba1259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PaintBrushIcon: {fileID: 1867617008}
+  CurrentColor: {r: 1, g: 1, b: 1, a: 1}
+  Colors:
+  - {r: 0.9764706, g: 0.25490198, b: 0.26666668, a: 1}
+  - {r: 0.9529412, g: 0.44705883, b: 0.17254902, a: 1}
+  - {r: 0.972549, g: 0.5882353, b: 0.11764706, a: 1}
+  - {r: 0.9764706, g: 0.78039217, b: 0.30980393, a: 1}
+  - {r: 0.5647059, g: 0.74509805, b: 0.42745098, a: 1}
+  - {r: 0.2627451, g: 0.6666667, b: 0.54509807, a: 1}
+  - {r: 0.34117648, g: 0.45882353, b: 0.5647059, a: 1}
+  - {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1950352193
 MonoBehaviour:
   m_ObjectHideFlags: 0
