@@ -12,6 +12,7 @@ public class MainCanvasScript : MonoBehaviour
     private Vector3 offset;
     private Quaternion Roffset;
     private Rigidbody2D MovingObject;
+    public ChargeDrawerScript CDS;
     public DragCamera2D CameraDrag;
     // Update is called once per frame
     void Update()
@@ -292,12 +293,20 @@ public class MainCanvasScript : MonoBehaviour
             }
         }
         //Charge tool
-        else if (toggle == "PlusMinus")
+        else if (toggle == "ChargePlus")
         {
             CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
-                item.enabled = false;
+                if (item.GetType().Name == "ChargeDrawerScript")
+                {
+                    item.enabled = true;
+                    CDS.isPostiveDrawing = true;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
             }
         }
         //Charge tool
@@ -306,7 +315,15 @@ public class MainCanvasScript : MonoBehaviour
             CameraDrag.dragEnabled = false;
             foreach (MonoBehaviour item in DrawerScripts)
             {
-                item.enabled = false;
+                if (item.GetType().Name == "ChargeDrawerScript")
+                {
+                    item.enabled = true;
+                    CDS.isPostiveDrawing = false;
+                }
+                else
+                {
+                    item.enabled = false;
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhysicsObjectScript : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PhysicsObjectScript : MonoBehaviour
     public Vector3 initalVelocity;
     private GameObject Anchor;
     public bool isAnchored;
+    public int charge;
+    public Text ChargeText;
     public void InstanciateAnchor(Vector3 Pos)
     {
         if (Anchor == null)
@@ -63,6 +66,7 @@ public class PhysicsObjectScript : MonoBehaviour
                 Destroy(VelocityLine.gameObject);
             }
         }
+        ChargeText.text = charge.ToString();
     }
     private void OnDestroy()
     {
