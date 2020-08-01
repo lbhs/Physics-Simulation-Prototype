@@ -26,19 +26,25 @@ public class LineDrawerScript : MonoBehaviour
                 LR.positionCount++;
                 LR.SetPosition(LR.positionCount - 1, Vector3.zero);
             }
-            if (Input.GetMouseButton(0))
+        }
+        if (Input.GetMouseButton(0))
+        {
+            if (Line != null && LR != null)
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(v3);
-                if ((mousePos-DownPos - LR.GetPosition(LR.positionCount - 1)).magnitude > lineQuality)
+                if ((mousePos - DownPos - LR.GetPosition(LR.positionCount - 1)).magnitude > lineQuality)
                 {
                     LR.positionCount++;
-                    LR.SetPosition(LR.positionCount - 1, mousePos-DownPos);
+                    LR.SetPosition(LR.positionCount - 1, mousePos - DownPos);
                 }
-
             }
-            if (Input.GetMouseButtonUp(0))
+
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (Line != null && LR != null)
             {
                 //TO-DO apply changes to the save json script
                 //triangle.GetComponent<Rigidbody2D>().simulated = true;
@@ -49,6 +55,8 @@ public class LineDrawerScript : MonoBehaviour
                 else
                 {
                     AddMesh(LR, Line.GetComponent<EdgeCollider2D>());
+                    Line = null;
+                    LR = null;
                 }
             }
         }
@@ -58,7 +66,7 @@ public class LineDrawerScript : MonoBehaviour
         Vector3[] Poses = new Vector3[line.positionCount];
         line.GetPositions(Poses);
         List<Vector2> DPoses = new List<Vector2>();
-        
+
         for (int i = 0; i < Poses.Length; i++)
         {
             DPoses.Add(new Vector2(Poses[i].x, Poses[i].y));

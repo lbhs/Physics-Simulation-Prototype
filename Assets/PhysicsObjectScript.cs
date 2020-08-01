@@ -56,6 +56,13 @@ public class PhysicsObjectScript : MonoBehaviour
         {
             ResetVelocity();
         }
+        else if(Time.timeScale == 1)
+        {
+            if (VelocityLine != null)
+            {
+                Destroy(VelocityLine.gameObject);
+            }
+        }
     }
     private void OnDestroy()
     {
@@ -66,5 +73,23 @@ public class PhysicsObjectScript : MonoBehaviour
     {
         InstanciateVelocityLine(transform.position);
         VelocityLine.SetPosition(1, initalVelocity);
+        AddCollision(VelocityLine, VelocityLine.GetComponent<EdgeCollider2D>());
+    }
+
+    public void StartSimulation()
+    {
+        rb.velocity = initalVelocity;
+    }
+    void AddCollision(LineRenderer line, EdgeCollider2D Edge)
+    {
+        Vector3[] Poses = new Vector3[line.positionCount];
+        line.GetPositions(Poses);
+        List<Vector2> DPoses = new List<Vector2>();
+
+        for (int i = 0; i < Poses.Length; i++)
+        {
+            DPoses.Add(new Vector2(Poses[i].x, Poses[i].y));
+        }
+        Edge.points = DPoses.ToArray();
     }
 }

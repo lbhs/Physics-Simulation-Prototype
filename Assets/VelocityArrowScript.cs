@@ -55,22 +55,10 @@ public class VelocityArrowScript : MonoBehaviour
             if (CurrentObject != null)
             {
                 CurrentObject.initalVelocity = CurrentObject.VelocityLine.GetPosition(1);
-                AddCollision(CurrentObject.VelocityLine, CurrentObject.VelocityLine.GetComponent<EdgeCollider2D>());
                 CurrentObject = null;
             }
         }
     }
 
-    void AddCollision(LineRenderer line, EdgeCollider2D Edge)
-    {
-        Vector3[] Poses = new Vector3[line.positionCount];
-        line.GetPositions(Poses);
-        List<Vector2> DPoses = new List<Vector2>();
-
-        for (int i = 0; i < Poses.Length; i++)
-        {
-            DPoses.Add(new Vector2(Poses[i].x, Poses[i].y));
-        }
-        Edge.points = DPoses.ToArray();
-    }
+    
 }

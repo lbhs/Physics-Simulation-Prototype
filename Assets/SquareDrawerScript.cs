@@ -24,6 +24,7 @@ public class SquareDrawerScript : MonoBehaviour
 
                 square = Instantiate(SquarePrefab, DownPos, Quaternion.identity);
             }
+        }
             if (Input.GetMouseButton(0))
             {
                 var v3 = Input.mousePosition;
@@ -52,6 +53,6 @@ public class SquareDrawerScript : MonoBehaviour
                 //TO-DO apply changes to the save json script
                 square.GetComponent<Rigidbody2D>().simulated = true;
             }
-        }
+        
     }
 }

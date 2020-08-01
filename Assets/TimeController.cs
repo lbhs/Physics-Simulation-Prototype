@@ -13,6 +13,10 @@ public class TimeController : MonoBehaviour
 
     public void startTime()
     {
+        foreach (PhysicsObjectScript item in DataSaveingScript.ListOfPhysicsObjects)
+        {
+            item.StartSimulation();
+        }
         Time.timeScale = PlayingTimeScale;
     }
 

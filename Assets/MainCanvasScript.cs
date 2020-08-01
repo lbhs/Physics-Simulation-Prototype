@@ -36,7 +36,7 @@ public class MainCanvasScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if (hit.collider != null)
+                if (hit.collider != null && hit.collider.name != "VelocityLine(Clone)")
                 {
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
                     MovingObject.simulated = false;
@@ -74,7 +74,7 @@ public class MainCanvasScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if (hit.collider != null)
+                if (hit.collider != null && hit.collider.name != "VelocityLine(Clone)")
                 {
                     //move object
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
@@ -232,9 +232,12 @@ public class MainCanvasScript : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null || (hit.collider.transform.name == "VelocityLine(Clone)"))
+                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null)
                     {
                         Destroy(hit.collider.gameObject);
+                    }else if (hit.collider.transform.name == "VelocityLine(Clone)")
+                    {
+                        hit.transform.GetComponent<PhysicsObjectScript>().initalVelocity = Vector3.zero;
                     }
                 }
             }
