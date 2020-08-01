@@ -25,7 +25,9 @@ public class SquareDrawerScript : MonoBehaviour
                 square = Instantiate(SquarePrefab, DownPos, Quaternion.identity);
             }
         }
-            if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
+        {
+            if (square != null)
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
@@ -45,14 +47,19 @@ public class SquareDrawerScript : MonoBehaviour
                 {
                     value = square.transform.localScale;
                 }
-                square.transform.position = (DownPos + mousePos)/2;
+                square.transform.position = (DownPos + mousePos) / 2;
                 square.transform.localScale = value;
             }
-            if (Input.GetMouseButtonUp(0))
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (square != null)
             {
                 //TO-DO apply changes to the save json script
                 square.GetComponent<Rigidbody2D>().simulated = true;
+                square = null;
             }
-        
+        }
+
     }
 }

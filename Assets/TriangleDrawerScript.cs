@@ -25,7 +25,9 @@ public class TriangleDrawerScript : MonoBehaviour
                 triangle = Instantiate(TrianglePrefab, DownPos, Quaternion.identity);
             }
         }
-            if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
+        {
+            if (triangle != null)
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
@@ -48,10 +50,14 @@ public class TriangleDrawerScript : MonoBehaviour
                 triangle.transform.position = (DownPos + mousePos) / 2;
                 triangle.transform.localScale = value;
             }
-            if (Input.GetMouseButtonUp(0))
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (triangle != null)
             {
                 //TO-DO apply changes to the save json script
                 triangle.GetComponent<Rigidbody2D>().simulated = true;
             }
+        }
     }
 }

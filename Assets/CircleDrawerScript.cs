@@ -26,7 +26,9 @@ public class CircleDrawerScript : MonoBehaviour
                 circle = Instantiate(CirclePrefab, DownPos, Quaternion.identity);
             }
         }
-            if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
+        {
+            if (circle != null)
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
@@ -54,11 +56,15 @@ public class CircleDrawerScript : MonoBehaviour
                 }
                 circle.transform.localScale = value;
             }
-            if (Input.GetMouseButtonUp(0))
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (circle != null)
             {
                 //TO-DO apply changes to the save json script
                 circle.GetComponent<Rigidbody2D>().simulated = true;
             }
-        
+        }
+
     }
 }
