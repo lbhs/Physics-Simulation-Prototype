@@ -232,7 +232,7 @@ public class MainCanvasScript : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null)
+                    if (hit.collider.GetComponent<PhysicsObjectScript>() != null || (hit.collider.transform.name == "VelocityLine(Clone)"))
                     {
                         Destroy(hit.collider.gameObject);
                     }

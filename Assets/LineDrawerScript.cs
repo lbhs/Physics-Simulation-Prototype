@@ -21,20 +21,20 @@ public class LineDrawerScript : MonoBehaviour
                 v3.z = 10.0f;
                 DownPos = Camera.main.ScreenToWorldPoint(v3);
 
-                Line = Instantiate(LineObject, Vector3.zero, Quaternion.identity);
+                Line = Instantiate(LineObject, DownPos, Quaternion.identity);
                 LR = Line.GetComponent<LineRenderer>();
                 LR.positionCount++;
-                LR.SetPosition(LR.positionCount - 1, DownPos);
+                LR.SetPosition(LR.positionCount - 1, Vector3.zero);
             }
             if (Input.GetMouseButton(0))
             {
                 var v3 = Input.mousePosition;
                 v3.z = 10.0f;
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(v3);
-                if ((mousePos - LR.GetPosition(LR.positionCount - 1)).magnitude > lineQuality)
+                if ((mousePos-DownPos - LR.GetPosition(LR.positionCount - 1)).magnitude > lineQuality)
                 {
                     LR.positionCount++;
-                    LR.SetPosition(LR.positionCount - 1, mousePos);
+                    LR.SetPosition(LR.positionCount - 1, mousePos-DownPos);
                 }
 
             }
