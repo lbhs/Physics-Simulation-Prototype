@@ -8,6 +8,7 @@ public class PhysicsObjectScript : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject AnchorPrefab;
     public GameObject NoGravityPrefab;
+    public bool hideGravitySymbolOnPlay=false;
     public GameObject VelocityLinePrefab;
     [HideInInspector]public LineRenderer VelocityLine;
     public Vector3 initalVelocity;
@@ -79,15 +80,28 @@ public class PhysicsObjectScript : MonoBehaviour
                 ChargeText.text = charge.ToString();
             }
         }
-        if(rb.gravityScale == 1)
+        if (Time.timeScale == 0)
         {
-            Destroy(NoGravity);
+            if (rb.gravityScale == 1)
+            {
+                Destroy(NoGravity);
+            }
+            else
+            {
+                if (NoGravity == null)
+                {
+                    NoGravity = Instantiate(NoGravityPrefab, transform);
+                }
+            }
         }
         else
         {
-            if (NoGravity == null)
+            if (hideGravitySymbolOnPlay)
             {
-                NoGravity = Instantiate(NoGravityPrefab,transform);
+                if (NoGravity != null)
+                {
+                    Destroy(NoGravity);
+                }
             }
         }
     }
