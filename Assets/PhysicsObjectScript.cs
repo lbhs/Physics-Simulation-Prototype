@@ -7,10 +7,12 @@ public class PhysicsObjectScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject AnchorPrefab;
+    public GameObject NoGravityPrefab;
     public GameObject VelocityLinePrefab;
     [HideInInspector]public LineRenderer VelocityLine;
     public Vector3 initalVelocity;
     private GameObject Anchor;
+    private GameObject NoGravity;
     public bool isAnchored;
     public int charge;
     public Text ChargeText;
@@ -75,6 +77,17 @@ public class PhysicsObjectScript : MonoBehaviour
             else
             {
                 ChargeText.text = charge.ToString();
+            }
+        }
+        if(rb.gravityScale == 1)
+        {
+            Destroy(NoGravity);
+        }
+        else
+        {
+            if (NoGravity == null)
+            {
+                NoGravity = Instantiate(NoGravityPrefab,transform);
             }
         }
     }
