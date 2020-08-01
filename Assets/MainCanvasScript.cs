@@ -101,6 +101,7 @@ public class MainCanvasScript : MonoBehaviour
                 if (MovingObject != null)
                 {
                     //move object
+                    MovingObject.velocity = Vector2.zero;
                     MovingObject.simulated = true;
                     MovingObject = null;
                 }

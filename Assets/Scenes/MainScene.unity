@@ -1616,6 +1616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayingTimeScale: 1
+  G: 0
+  k: 2000
 --- !u!1 &326109600
 GameObject:
   m_ObjectHideFlags: 0
