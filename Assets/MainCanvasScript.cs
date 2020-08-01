@@ -45,7 +45,7 @@ public class MainCanvasScript : MonoBehaviour
                     diff.Normalize();
 
                     float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-                    Roffset = Quaternion.Inverse( Quaternion.Euler(0f, 0f, rot_z - 90)) * MovingObject.transform.rotation;
+                    Roffset = Quaternion.Inverse(Quaternion.Euler(0f, 0f, rot_z - 90)) * MovingObject.transform.rotation;
                 }
             }
             if (Input.GetMouseButton(0))
@@ -237,7 +237,8 @@ public class MainCanvasScript : MonoBehaviour
                     if (hit.collider.GetComponent<PhysicsObjectScript>() != null)
                     {
                         Destroy(hit.collider.gameObject);
-                    }else if (hit.collider.transform.name == "VelocityLine(Clone)")
+                    }
+                    else if (hit.collider.transform.name == "VelocityLine(Clone)")
                     {
                         hit.transform.GetComponent<PhysicsObjectScript>().initalVelocity = Vector3.zero;
                     }
@@ -324,6 +325,32 @@ public class MainCanvasScript : MonoBehaviour
                 else
                 {
                     item.enabled = false;
+                }
+            }
+        }
+        //Charge tool
+        else if (toggle == "Gravity")
+        {
+            CameraDrag.dragEnabled = false;
+            foreach (MonoBehaviour item in DrawerScripts)
+            {
+                item.enabled = false;
+            }
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (hit.collider != null && hit.collider.GetComponent<PhysicsObjectScript>() != null)
+                {
+                    Rigidbody2D rb = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rb.gravityScale == 0)
+                    {
+                        rb.gravityScale = 1;
+                    }
+                    else
+                    {
+                        rb.gravityScale = 0;
+                    }
                 }
             }
         }

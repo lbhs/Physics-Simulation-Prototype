@@ -66,7 +66,17 @@ public class PhysicsObjectScript : MonoBehaviour
                 Destroy(VelocityLine.gameObject);
             }
         }
-        ChargeText.text = charge.ToString();
+        if (charge != 0)
+        {
+            if (charge > 0)
+            {
+                ChargeText.text = "+"+charge.ToString();
+            }
+            else
+            {
+                ChargeText.text = charge.ToString();
+            }
+        }
     }
     private void OnDestroy()
     {
