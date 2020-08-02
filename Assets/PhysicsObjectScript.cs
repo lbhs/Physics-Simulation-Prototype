@@ -8,6 +8,8 @@ public class PhysicsObjectScript : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject AnchorPrefab;
     public GameObject NoGravityPrefab;
+    public GameObject PointJointPrefab;
+    private GameObject PointJoint;
     public bool hideGravitySymbolOnPlay=false;
     public GameObject VelocityLinePrefab;
     [HideInInspector]public LineRenderer VelocityLine;
@@ -22,6 +24,21 @@ public class PhysicsObjectScript : MonoBehaviour
         if (Anchor == null)
         {
             Anchor = Instantiate(AnchorPrefab, Pos, Quaternion.identity);
+        }
+    }
+    public void InstanciatePointJointicon(bool d)
+    {
+        if (d)
+        {
+            Destroy(PointJoint);
+        }
+        else
+        {
+
+            PointJoint = Instantiate(PointJointPrefab, transform.position, Quaternion.identity);
+            PointJoint.transform.parent = transform;
+            PointJoint.transform.localPosition = GetComponent<HingeJoint2D>().anchor;
+            PointJoint.transform.parent = null;
         }
     }
     public void InstanciateVelocityLine(Vector3 Pos)

@@ -149,6 +149,9 @@ MonoBehaviour:
     type: 3}
   NoGravityPrefab: {fileID: 7596929884072132762, guid: 78006356903d6d648a6d283c14b8eac8,
     type: 3}
+  PointJointPrefab: {fileID: 7596929884072132762, guid: a331a6f9e963eaf499eb7374dcc5ceb9,
+    type: 3}
+  hideGravitySymbolOnPlay: 0
   VelocityLinePrefab: {fileID: 4896556315484827839, guid: ef86b3f26e06be5489387a90ef513f2d,
     type: 3}
   VelocityLine: {fileID: 0}
@@ -332,4 +335,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 37
+  m_Text: 

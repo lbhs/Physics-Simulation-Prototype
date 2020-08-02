@@ -426,7 +426,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 59753507}
   m_OnClick:
     m_PersistentCalls:
@@ -5871,6 +5871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f183d3f6ed92104ead628c4826fca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EmptyPrefab: {fileID: 3377797419330559812, guid: 1409368aa06fde94cab5f506b4b03d52,
+    type: 3}
 --- !u!114 &1950352191
 MonoBehaviour:
   m_ObjectHideFlags: 0
