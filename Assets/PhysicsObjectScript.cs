@@ -13,7 +13,7 @@ public class PhysicsObjectScript : MonoBehaviour
     public GameObject PointJointPrefab;
     private GameObject PointJoint;
     public GameObject LineJointLinePrefab;
-    public bool hideGravitySymbolOnPlay = false;
+    private List<GameObject> LineJointLinesList = new List<GameObject>();
     public GameObject VelocityLinePrefab;
     [HideInInspector] public LineRenderer VelocityLine;
     public Vector3 initalVelocity;
@@ -44,12 +44,30 @@ public class PhysicsObjectScript : MonoBehaviour
             PointJoint.transform.parent = null;
         }
     }
-    public void InstanciateLineJticon(Transform jointOne, Transform jointTwo)
+    public void InstanciateLineJticon(RelativeJoint2D jointOne, RelativeJoint2D jointTwo)
     {
         GameObject Line = Instantiate(LineJointLinePrefab,Vector3.zero,Quaternion.identity);
         Line.transform.parent = transform;
-        Line.GetComponent<LineRenderer>().SetPosition(0, jointOne.position);
-        Line.GetComponent<LineRenderer>().SetPosition(1, jointTwo.position);
+        Line.GetComponent<LineRenderer>().SetPosition(0, jointOne.transform.position);
+        Line.GetComponent<LineRenderer>().SetPosition(1, jointTwo.transform.position);
+        LineJointLinesList.Add(Line);
+        Line.GetComponent<JointLineScript>().one = jointOne;
+        Line.GetComponent<JointLineScript>().two = jointTwo;
+        
+            List<int> list = jointOne.GetComponent<PhysicsObjectScript>().connectedIDS;
+            List<int> list2 = jointOne.GetComponent<PhysicsObjectScript>().connectedIDS;
+            foreach (var item in list.ToArray())
+            {
+                foreach (var item2 in list2.ToArray())
+                {
+                    if (item != item2)
+                    {
+                        connectedIDS.Add(item);
+                    }
+
+                }
+            }
+        
     }
     public void InstanciateVelocityLine(Vector3 Pos)
     {
@@ -125,17 +143,38 @@ public class PhysicsObjectScript : MonoBehaviour
         }
         else
         {
-            if (hideGravitySymbolOnPlay)
-            {
+            
                 if (NoGravity != null)
                 {
                     Destroy(NoGravity);
                 }
-            }
+            
         }
     }
     private void OnDestroy()
     {
+        Destroy(Anchor);
+        Destroy(NoGravity);
+        Destroy(PointJoint);
+        foreach (var item in connectedIDS)
+        {
+            foreach (var items in DataSaveingScript.ListOfPhysicsObjects)
+            {
+                if(item == items.ID)
+                {
+                    RelativeJoint2D[] j = items.GetComponents<RelativeJoint2D>();
+                    foreach (var itemsj in j)
+                    {
+                        Destroy(itemsj);
+                    }
+                    List<GameObject> L = items.LineJointLinesList;
+                    foreach (var itemsl in L)
+                    {
+                        Destroy(itemsl);
+                    }
+                }
+            }
+        }
         DataSaveingScript.ListOfPhysicsObjects.Remove(GetComponent<PhysicsObjectScript>());
     }
 

@@ -32,14 +32,17 @@ public class LineJointScript : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            LR.SetPosition(0, Vector3.zero);
-            LR.SetPosition(1, Vector3.zero);
+            if (objectOne != null)
+            {
+                LR.SetPosition(0, Vector3.zero);
+                LR.SetPosition(1, Vector3.zero);
 
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.transform != null)
-            {
-                objectTwo = hit.transform.GetComponent<Rigidbody2D>();
-                BondObjects(objectOne, objectTwo);
+                if (hit.transform != null)
+                {
+                    objectTwo = hit.transform.GetComponent<Rigidbody2D>();
+                    BondObjects(objectOne, objectTwo);
+                }
             }
             objectOne = null;
             objectTwo = null;
@@ -55,6 +58,6 @@ public class LineJointScript : MonoBehaviour
         One.GetComponent<PhysicsObjectScript>().connectedIDS.Add(Two.GetComponent<PhysicsObjectScript>().ID);
         Two.GetComponent<PhysicsObjectScript>().connectedIDS.Add(One.GetComponent<PhysicsObjectScript>().ID);
         //graphics
-        One.GetComponent<PhysicsObjectScript>().InstanciateLineJticon(One.transform, T.transform);
+        One.GetComponent<PhysicsObjectScript>().InstanciateLineJticon(O,T);
     }
 }

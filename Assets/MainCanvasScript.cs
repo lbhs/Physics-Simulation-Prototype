@@ -40,7 +40,7 @@ public class MainCanvasScript : MonoBehaviour
                 if (hit.collider != null && hit.collider.name != "VelocityLine(Clone)")
                 {
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
-                    MovingObject.simulated = false;
+                   // MovingObject.simulated = false;
                     Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - MovingObject.transform.position;
                     diff.Normalize();
 
@@ -57,6 +57,7 @@ public class MainCanvasScript : MonoBehaviour
 
                     float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
                     MovingObject.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90) * Roffset;
+                    MovingObject.MoveRotation(Quaternion.Euler(0f, 0f, rot_z - 90) * Roffset);
                 }
             }
             if (Input.GetMouseButtonUp(0))
@@ -64,7 +65,9 @@ public class MainCanvasScript : MonoBehaviour
                 if (MovingObject != null)
                 {
                     //move object
-                    MovingObject.simulated = true;
+                    //MovingObject.simulated = true;
+                    MovingObject.velocity = Vector3.zero;
+                    MovingObject.angularVelocity = 0;
                     MovingObject = null;
                 }
             }
@@ -79,7 +82,7 @@ public class MainCanvasScript : MonoBehaviour
                 {
                     //move object
                     MovingObject = hit.collider.GetComponent<Rigidbody2D>();
-                    MovingObject.simulated = false;
+                    //MovingObject.simulated = false;
                     offset = hit.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     offset.z = 10;
                 }
@@ -94,6 +97,7 @@ public class MainCanvasScript : MonoBehaviour
                 {
                     //move object
                     MovingObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+                    MovingObject.MovePosition( Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);
                 }
             }
             if (Input.GetMouseButtonUp(0))
@@ -102,7 +106,8 @@ public class MainCanvasScript : MonoBehaviour
                 {
                     //move object
                     MovingObject.velocity = Vector2.zero;
-                    MovingObject.simulated = true;
+                    MovingObject.angularVelocity = 0;
+                    //MovingObject.simulated = true;
                     MovingObject = null;
                 }
                 CameraDrag.dragEnabled = false;
