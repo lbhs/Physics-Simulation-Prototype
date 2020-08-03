@@ -6,7 +6,7 @@ using SimpleJSON;
 public class DataSaveingScript : MonoBehaviour
 {
     public static List<PhysicsObjectScript> ListOfPhysicsObjects = new List<PhysicsObjectScript>();
-
+    public static int nextIDNum;
     public static string JSONFileText;
     public static void SaveJSON()
     {

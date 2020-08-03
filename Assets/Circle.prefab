@@ -212,12 +212,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63aa3e75ed26901469d2994a64a0daa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  connectedIDS: 
   rb: {fileID: 7707847143424123986}
   AnchorPrefab: {fileID: 7596929884072132762, guid: 8a1aa7601fd27ce48b894ee60a47c5d8,
     type: 3}
   NoGravityPrefab: {fileID: 7596929884072132762, guid: 78006356903d6d648a6d283c14b8eac8,
     type: 3}
   PointJointPrefab: {fileID: 7596929884072132762, guid: a331a6f9e963eaf499eb7374dcc5ceb9,
+    type: 3}
+  LineJointLinePrefab: {fileID: 8250269848907586246, guid: 24ddc53efdd3b1d4fbb6ec6d4bbadaa0,
     type: 3}
   hideGravitySymbolOnPlay: 0
   VelocityLinePrefab: {fileID: 4896556315484827839, guid: ef86b3f26e06be5489387a90ef513f2d,

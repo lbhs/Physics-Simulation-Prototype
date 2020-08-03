@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class PhysicsObjectScript : MonoBehaviour
 {
+    public int ID;
+    public List<int> connectedIDS = new List<int>();
     public Rigidbody2D rb;
     public GameObject AnchorPrefab;
     public GameObject NoGravityPrefab;
     public GameObject PointJointPrefab;
     private GameObject PointJoint;
-    public bool hideGravitySymbolOnPlay=false;
+    public GameObject LineJointLinePrefab;
+    public bool hideGravitySymbolOnPlay = false;
     public GameObject VelocityLinePrefab;
-    [HideInInspector]public LineRenderer VelocityLine;
+    [HideInInspector] public LineRenderer VelocityLine;
     public Vector3 initalVelocity;
     private GameObject Anchor;
     private GameObject NoGravity;
@@ -41,6 +44,13 @@ public class PhysicsObjectScript : MonoBehaviour
             PointJoint.transform.parent = null;
         }
     }
+    public void InstanciateLineJticon(Transform jointOne, Transform jointTwo)
+    {
+        GameObject Line = Instantiate(LineJointLinePrefab,Vector3.zero,Quaternion.identity);
+        Line.transform.parent = transform;
+        Line.GetComponent<LineRenderer>().SetPosition(0, jointOne.position);
+        Line.GetComponent<LineRenderer>().SetPosition(1, jointTwo.position);
+    }
     public void InstanciateVelocityLine(Vector3 Pos)
     {
         if (VelocityLine != null)
@@ -53,6 +63,8 @@ public class PhysicsObjectScript : MonoBehaviour
     private void Start()
     {
         DataSaveingScript.ListOfPhysicsObjects.Add(GetComponent<PhysicsObjectScript>());
+        ID = DataSaveingScript.nextIDNum;
+        DataSaveingScript.nextIDNum++;
         if (isAnchored)
         {
             InstanciateAnchor(transform.position);
