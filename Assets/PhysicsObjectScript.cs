@@ -80,7 +80,10 @@ public class PhysicsObjectScript : MonoBehaviour
     }
     private void Start()
     {
-        DataSaveingScript.ListOfPhysicsObjects.Add(GetComponent<PhysicsObjectScript>());
+        if (!DataSaveingScript.ListOfPhysicsObjects.Contains(GetComponent<PhysicsObjectScript>()))
+        {
+            DataSaveingScript.ListOfPhysicsObjects.Add(GetComponent<PhysicsObjectScript>());
+        }
         if (ID == -1) //int cannot be null (only zero), so -1 is my pretend null
         {
             ID = DataSaveingScript.nextIDNum;

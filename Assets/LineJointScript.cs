@@ -49,7 +49,7 @@ public class LineJointScript : MonoBehaviour
         }
     }
 
-    void BondObjects(Rigidbody2D One, Rigidbody2D Two)
+    public static void BondObjects(Rigidbody2D One, Rigidbody2D Two)
     {
         RelativeJoint2D O = One.gameObject.AddComponent<RelativeJoint2D>();
         RelativeJoint2D T = Two.gameObject.AddComponent<RelativeJoint2D>();

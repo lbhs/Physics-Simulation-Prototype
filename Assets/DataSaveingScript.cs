@@ -100,7 +100,7 @@ public class DataSaveingScript : MonoBehaviour
                 g.GetComponent<PhysicsObjectScript>().AddCollision(g.GetComponent<LineRenderer>(), g.GetComponent<EdgeCollider2D>());
             }
             g.transform.localScale = new Vector3(N["objects"][i]["scale"]["x"].AsFloat, N["objects"][i]["scale"]["y"].AsFloat, N["objects"][i]["scale"]["z"].AsFloat);
-            
+
             PhysicsObjectScript obj = g.GetComponent<PhysicsObjectScript>();
             obj.ID = N["objects"][i]["ID"].AsInt;
             nextIDNum = N["objects"][i]["ID"].AsInt;
@@ -116,13 +116,37 @@ public class DataSaveingScript : MonoBehaviour
             }
             obj.isAnchored = N["objects"][i]["isAnchored"].AsBool;
             obj.initalVelocity = new Vector3(N["objects"][i]["initialVelocity"]["x"].AsFloat, N["objects"][i]["initialVelocity"]["y"].AsFloat, N["objects"][i]["initialVelocity"]["z"].AsFloat);
-            if(N["objects"][i]["usePointJoint"].AsBool == true)
+            if (N["objects"][i]["usePointJoint"].AsBool == true)
             {
                 g.AddComponent<HingeJoint2D>();
                 g.GetComponent<HingeJoint2D>().anchor = new Vector2(N["objects"][i]["pointJointPosition"]["x"].AsFloat, N["objects"][i]["pointJointPosition"]["y"].AsFloat);
                 obj.InstanciatePointJointicon(false);
             }
             g.GetComponent<Rigidbody2D>().simulated = true;
+            List<int> list = new List<int>();
+            for (int a = 0; a < N["objects"][i]["connectedIDs"].Count; a++)
+            {
+                list.Add(N["objects"][i]["connectedIDs"][a].AsInt);
+            }
+            obj.connectedIDS = list;
+            ListOfPhysicsObjects.Add(obj);
+        }
+        foreach (var item in ListOfPhysicsObjects)
+        {
+            foreach (var item2 in ListOfPhysicsObjects)
+            {
+                if (item != item2)
+                {
+                    foreach (var id in item.connectedIDS.ToArray())
+                    {
+                        if (id == item2.ID)
+                        {
+                            LineJointScript.BondObjects(item.GetComponent<Rigidbody2D>(), item2.GetComponent<Rigidbody2D>());
+                        }
+                    }
+
+                }
+            }
         }
     }
 
