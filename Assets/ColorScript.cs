@@ -29,7 +29,7 @@ public class ColorScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if(hit.collider != null && hit.collider.GetComponent<PhysicsObjectScript>() != null)
+            if(hit.transform != null && hit.transform.GetComponent<PhysicsObjectScript>() != null)
             {
                 if (hit.collider.GetComponent<LineRenderer>() == null)
                 {
