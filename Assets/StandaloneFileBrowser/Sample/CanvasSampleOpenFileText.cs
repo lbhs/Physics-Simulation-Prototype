@@ -19,7 +19,7 @@ public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler {
     private static extern void UploadFile(string gameObjectName, string methodName, string filter, bool multiple);
 
     public void OnPointerDown(PointerEventData eventData) {
-        UploadFile(gameObject.name, "OnFileUpload", ".txt", false);
+        UploadFile(gameObject.name, "OnFileUpload", ".json", false);
     }
 
     // Called from browser
@@ -38,7 +38,7 @@ public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler {
     }
 
     private void OnClick() {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "txt", false);
+        var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "json", false);
         if (paths.Length > 0) {
             StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
         }

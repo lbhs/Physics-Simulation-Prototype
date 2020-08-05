@@ -26,7 +26,7 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
         DataSaveingScript.SaveJSON();
         
         var bytes = Encoding.UTF8.GetBytes(DataSaveingScript.JSONFileText);
-        DownloadFile(gameObject.name, "OnFileDownload", defaultFileName + ".txt", bytes, bytes.Length);
+        DownloadFile(gameObject.name, "OnFileDownload", defaultFileName + ".json", bytes, bytes.Length);
     }
 
     // Called from browser
@@ -46,7 +46,7 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
         
     }
     public void OnClick() {
-        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", defaultFileName, "txt");
+        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", defaultFileName, "json");
         if (!string.IsNullOrEmpty(path)) {
             DataSaveingScript.SaveJSON();
             File.WriteAllText(path, DataSaveingScript.JSONFileText);
