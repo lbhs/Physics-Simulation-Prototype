@@ -49,11 +49,25 @@ public class DataSaveingScript : MonoBehaviour
 
         }
         JSONFileText = JsonUtility.ToJson(w);
-        print(JSONFileText);
+        //print(JSONFileText);
     }
-    public static void LoadJSON(string JSON)
+    public static void LoadJSON(string json)
     {
-        print(JSON);
+        print(json);
+        LoadPrefabs();
+        var N = JSON.Parse(json);
+        //clear the scene
+        PhysicsObjectScript[] currentObjects = FindObjectsOfType<PhysicsObjectScript>();
+        foreach (var item in currentObjects)
+        {
+            Destroy(item.gameObject);
+        }
+        //get objects from json
+        foreach (var item in N["objects"])
+        {
+
+        }
+        Instantiate(square, Vector3.zero, Quaternion.identity);
     }
 
     static ObjectInfo ConvertToClass(PhysicsObjectScript obj)
@@ -91,5 +105,19 @@ public class DataSaveingScript : MonoBehaviour
         return Class;
     }
 
+    public static GameObject square;
+    public static GameObject circle;
+    public static GameObject triangle;
+    public static GameObject line;
+    public static void LoadPrefabs()
+    {
+        if (square == null)
+        {
+            square = (GameObject)Resources.Load("Square", typeof(GameObject));
+            circle = (GameObject)Resources.Load("Circle", typeof(GameObject));
+            triangle = (GameObject)Resources.Load("Triangle", typeof(GameObject));
+            line = (GameObject)Resources.Load("Line", typeof(GameObject));
+        }
+    }
 }
 
