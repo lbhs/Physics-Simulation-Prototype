@@ -53,7 +53,7 @@ public class DataSaveingScript : MonoBehaviour
     }
     public static void LoadJSON(string json)
     {
-        print(json);
+        //print(json);
         LoadPrefabs();
         var N = JSON.Parse(json);
         //clear the scene
@@ -63,11 +63,38 @@ public class DataSaveingScript : MonoBehaviour
             Destroy(item.gameObject);
         }
         //get objects from json
-        foreach (var item in N["objects"])
+        for (int i = 0; i < N["objects"].Count; i++)
         {
-
+            GameObject g = null;
+            if (N["objects"][i]["name"] == "Square(Clone)")
+            {
+                g = Instantiate(square, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
+                g.name = N["objects"][i]["name"];
+            }
+            else if (N["objects"][i]["name"] == "Circle(Clone)")
+            {
+                g = Instantiate(circle, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
+                g.name = N["objects"][i]["name"];
+            }
+            else if (N["objects"][i]["name"] == "Triangle(Clone)")
+            {
+                g = Instantiate(triangle, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
+                g.name = N["objects"][i]["name"];
+            }
+            else if (N["objects"][i]["name"] == "Line(Clone)")
+            {
+                g = Instantiate(line, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
+                g.name = N["objects"][i]["name"];
+                List<Vector3> LPoses = new List<Vector3>();
+                for (int l = 0; l < N["objects"][i]["linePositions"].Count; l++)
+                {
+                    LPoses.Add(new Vector3(N["objects"][i]["linePositions"][l]["x"].AsFloat, N["objects"][i]["linePositions"][l]["y"].AsFloat, N["objects"][i]["linePositions"][l]["z"].AsFloat));
+                }
+                g.GetComponent<LineRenderer>().positionCount = LPoses.Count;
+                g.GetComponent<LineRenderer>().SetPositions(LPoses.ToArray());
+            }
+            g.transform.localScale = new Vector3(N["objects"][i]["scale"]["x"].AsFloat, N["objects"][i]["scale"]["y"].AsFloat, N["objects"][i]["scale"]["z"].AsFloat);
         }
-        Instantiate(square, Vector3.zero, Quaternion.identity);
     }
 
     static ObjectInfo ConvertToClass(PhysicsObjectScript obj)
