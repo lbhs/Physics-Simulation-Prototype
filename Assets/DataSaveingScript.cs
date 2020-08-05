@@ -71,21 +71,25 @@ public class DataSaveingScript : MonoBehaviour
             {
                 g = Instantiate(square, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
                 g.name = N["objects"][i]["name"];
+                g.GetComponent<SpriteRenderer>().color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
             }
             else if (N["objects"][i]["name"] == "Circle(Clone)")
             {
                 g = Instantiate(circle, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
                 g.name = N["objects"][i]["name"];
+                g.GetComponent<SpriteRenderer>().color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
             }
             else if (N["objects"][i]["name"] == "Triangle(Clone)")
             {
                 g = Instantiate(triangle, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
                 g.name = N["objects"][i]["name"];
+                g.GetComponent<SpriteRenderer>().color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
             }
             else if (N["objects"][i]["name"] == "Line(Clone)")
             {
                 g = Instantiate(line, new Vector3(N["objects"][i]["position"]["x"].AsFloat, N["objects"][i]["position"]["y"].AsFloat, N["objects"][i]["position"]["z"].AsFloat), Quaternion.Euler(new Vector3(N["objects"][i]["rotation"]["x"].AsFloat, N["objects"][i]["rotation"]["y"].AsFloat, N["objects"][i]["rotation"]["z"].AsFloat))) as GameObject;
                 g.name = N["objects"][i]["name"];
+                g.GetComponent<LineRenderer>().material.color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
                 List<Vector3> LPoses = new List<Vector3>();
                 for (int l = 0; l < N["objects"][i]["linePositions"].Count; l++)
                 {
@@ -96,7 +100,7 @@ public class DataSaveingScript : MonoBehaviour
                 g.GetComponent<PhysicsObjectScript>().AddCollision(g.GetComponent<LineRenderer>(), g.GetComponent<EdgeCollider2D>());
             }
             g.transform.localScale = new Vector3(N["objects"][i]["scale"]["x"].AsFloat, N["objects"][i]["scale"]["y"].AsFloat, N["objects"][i]["scale"]["z"].AsFloat);
-            g.GetComponent<SpriteRenderer>().material.color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
+            
             PhysicsObjectScript obj = g.GetComponent<PhysicsObjectScript>();
             obj.ID = N["objects"][i]["ID"].AsInt;
             nextIDNum = N["objects"][i]["ID"].AsInt;
@@ -130,7 +134,14 @@ public class DataSaveingScript : MonoBehaviour
         Class.position = obj.transform.position;
         Class.rotation = obj.transform.eulerAngles;
         Class.scale = obj.transform.localScale;
-        Class.color = obj.GetComponent<Renderer>().material.color;
+        if (obj.name == "Line(Clone)")
+        {
+            Class.color = obj.GetComponent<LineRenderer>().material.color;
+        }
+        else
+        {
+            Class.color = obj.GetComponent<SpriteRenderer>().color;
+        }
         Class.charge = obj.charge;
         if (obj.rb.gravityScale == 0)
         {
