@@ -8,11 +8,19 @@ using System;
 [Serializable]
 public class ObjectInfo
 {
-    public string Name;
-    public Vector3 pos;
-    public Vector3 rot;
+    public string name;
+    public int ID;
+    public Vector3 position;
+    public Vector3 rotation;
     public Vector3 scale;
     public Color color;
+    public int charge;
+    public bool useGravity;
+    public bool isAnchored;
+    public Vector2 pointJointPosition;
+    public Vector3 initialVelocity;
+    public int[] connectedIDs;
+    public Vector3[] linePositions;
 }
 
 [Serializable]
@@ -51,12 +59,35 @@ public class DataSaveingScript : MonoBehaviour
     static ObjectInfo ConvertToClass(PhysicsObjectScript obj)
     {
         ObjectInfo Class = new ObjectInfo();
-        Class.Name = obj.name;
-        Class.pos = obj.transform.position;
-        Class.rot = obj.transform.eulerAngles;
+        Class.name = obj.name;
+        Class.ID = obj.ID;
+        Class.position = obj.transform.position;
+        Class.rotation = obj.transform.eulerAngles;
         Class.scale = obj.transform.localScale;
         Class.color = obj.GetComponent<Renderer>().material.color;
-
+        Class.charge = obj.charge;
+        if (obj.rb.gravityScale == 0)
+        {
+            Class.useGravity = false;
+        }
+        else
+        {
+            Class.useGravity = true;
+        }
+        Class.isAnchored = obj.isAnchored;
+        if (obj.GetComponent<HingeJoint2D>() != null)
+        {
+            Class.pointJointPosition = obj.GetComponent<HingeJoint2D>().anchor;
+        }
+        Class.initialVelocity = obj.initalVelocity;
+        Class.connectedIDs = obj.connectedIDS.ToArray();
+        if (obj.GetComponent<LineRenderer>() != null)
+        {
+            Vector3[] poses = new Vector3[obj.GetComponent<LineRenderer>().positionCount];
+            obj.GetComponent<LineRenderer>().GetPositions(poses);
+            print(poses);
+            Class.linePositions = poses;
+        }
         return Class;
     }
 
