@@ -1,0 +1,128 @@
+{
+    "objects": [
+        {
+            "name": "Circle(Clone)",
+            "ID": 1,
+            "position": {
+                "x": 2.7053825855255129,
+                "y": -0.21246463060379029,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 329.6763610839844
+            },
+            "scale": {
+                "x": 10.764873504638672,
+                "y": 10.764873504638672,
+                "z": 10.764873504638672
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "charge": 2,
+            "useGravity": false,
+            "isAnchored": false,
+            "usePointJoint": true,
+            "pointJointPosition": {
+                "x": 0.049999963492155078,
+                "y": 0.06578949093818665
+            },
+            "initialVelocity": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "connectedIDs": [
+                2
+            ],
+            "linePositions": []
+        },
+        {
+            "name": "Square(Clone)",
+            "ID": 2,
+            "position": {
+                "x": 5.807365417480469,
+                "y": -2.98866868019104,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 138.12254333496095
+            },
+            "scale": {
+                "x": -2.9745054244995119,
+                "y": 1.6997170448303223,
+                "z": 0.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "charge": -1,
+            "useGravity": true,
+            "isAnchored": false,
+            "usePointJoint": false,
+            "pointJointPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "initialVelocity": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "connectedIDs": [
+                1
+            ],
+            "linePositions": []
+        },
+        {
+            "name": "Triangle(Clone)",
+            "ID": 3,
+            "position": {
+                "x": -3.739377021789551,
+                "y": -0.977337121963501,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 19.158422470092775
+            },
+            "scale": {
+                "x": -14.589238166809082,
+                "y": 31.728046417236329,
+                "z": 0.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "charge": -1,
+            "useGravity": true,
+            "isAnchored": true,
+            "usePointJoint": false,
+            "pointJointPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "initialVelocity": {
+                "x": 2.280453681945801,
+                "y": 1.8696883916854859,
+                "z": 0.0
+            },
+            "connectedIDs": [],
+            "linePositions": []
+        }
+    ]
+}

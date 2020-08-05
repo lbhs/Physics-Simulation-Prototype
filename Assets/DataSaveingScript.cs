@@ -17,6 +17,7 @@ public class ObjectInfo
     public int charge;
     public bool useGravity;
     public bool isAnchored;
+    public bool usePointJoint;
     public Vector2 pointJointPosition;
     public Vector3 initialVelocity;
     public int[] connectedIDs;
@@ -92,8 +93,32 @@ public class DataSaveingScript : MonoBehaviour
                 }
                 g.GetComponent<LineRenderer>().positionCount = LPoses.Count;
                 g.GetComponent<LineRenderer>().SetPositions(LPoses.ToArray());
+                g.GetComponent<PhysicsObjectScript>().AddCollision(g.GetComponent<LineRenderer>(), g.GetComponent<EdgeCollider2D>());
             }
             g.transform.localScale = new Vector3(N["objects"][i]["scale"]["x"].AsFloat, N["objects"][i]["scale"]["y"].AsFloat, N["objects"][i]["scale"]["z"].AsFloat);
+            g.GetComponent<SpriteRenderer>().material.color = new Color(N["objects"][i]["color"]["r"].AsFloat, N["objects"][i]["color"]["g"].AsFloat, N["objects"][i]["color"]["b"].AsFloat, N["objects"][i]["color"]["a"].AsFloat);
+            PhysicsObjectScript obj = g.GetComponent<PhysicsObjectScript>();
+            obj.ID = N["objects"][i]["ID"].AsInt;
+            nextIDNum = N["objects"][i]["ID"].AsInt;
+            nextIDNum++;
+            obj.charge = N["objects"][i]["charge"];
+            if (N["objects"][i]["useGravity"].AsBool == true)
+            {
+                g.GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+            else
+            {
+                g.GetComponent<Rigidbody2D>().gravityScale = 0;
+            }
+            obj.isAnchored = N["objects"][i]["isAnchored"].AsBool;
+            obj.initalVelocity = new Vector3(N["objects"][i]["initialVelocity"]["x"].AsFloat, N["objects"][i]["initialVelocity"]["y"].AsFloat, N["objects"][i]["initialVelocity"]["z"].AsFloat);
+            if(N["objects"][i]["usePointJoint"].AsBool == true)
+            {
+                g.AddComponent<HingeJoint2D>();
+                g.GetComponent<HingeJoint2D>().anchor = new Vector2(N["objects"][i]["pointJointPosition"]["x"].AsFloat, N["objects"][i]["pointJointPosition"]["y"].AsFloat);
+                obj.InstanciatePointJointicon(false);
+            }
+            g.GetComponent<Rigidbody2D>().simulated = true;
         }
     }
 
@@ -118,7 +143,12 @@ public class DataSaveingScript : MonoBehaviour
         Class.isAnchored = obj.isAnchored;
         if (obj.GetComponent<HingeJoint2D>() != null)
         {
+            Class.usePointJoint = true;
             Class.pointJointPosition = obj.GetComponent<HingeJoint2D>().anchor;
+        }
+        else
+        {
+            Class.usePointJoint = false;
         }
         Class.initialVelocity = obj.initalVelocity;
         Class.connectedIDs = obj.connectedIDS.ToArray();

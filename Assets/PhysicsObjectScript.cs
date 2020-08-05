@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PhysicsObjectScript : MonoBehaviour
 {
-    public int ID;
+    public int ID = -1;
     public List<int> connectedIDS = new List<int>();
     public Rigidbody2D rb;
     public GameObject AnchorPrefab;
@@ -81,8 +81,11 @@ public class PhysicsObjectScript : MonoBehaviour
     private void Start()
     {
         DataSaveingScript.ListOfPhysicsObjects.Add(GetComponent<PhysicsObjectScript>());
-        ID = DataSaveingScript.nextIDNum;
-        DataSaveingScript.nextIDNum++;
+        if (ID == -1) //int cannot be null (only zero), so -1 is my pretend null
+        {
+            ID = DataSaveingScript.nextIDNum;
+            DataSaveingScript.nextIDNum++;
+        }
         if (isAnchored)
         {
             InstanciateAnchor(transform.position);
@@ -189,7 +192,7 @@ public class PhysicsObjectScript : MonoBehaviour
     {
         rb.velocity = initalVelocity;
     }
-    void AddCollision(LineRenderer line, EdgeCollider2D Edge)
+    public void AddCollision(LineRenderer line, EdgeCollider2D Edge)
     {
         Vector3[] Poses = new Vector3[line.positionCount];
         line.GetPositions(Poses);
