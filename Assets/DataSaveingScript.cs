@@ -191,7 +191,7 @@ public class DataSaveingScript : MonoBehaviour
         {
             Vector3[] poses = new Vector3[obj.GetComponent<LineRenderer>().positionCount];
             obj.GetComponent<LineRenderer>().GetPositions(poses);
-            print(poses);
+            //print(poses);
             Class.linePositions = poses;
         }
         return Class;
